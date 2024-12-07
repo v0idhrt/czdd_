@@ -1,0 +1,21 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    border-radius: 72px;
+    background-color: #F7F7F7;
+    position: absolute;
+    z-index: 3;
+    top:733px;
+    padding: 30px;
+    min-height: 874px;
+    width: 85%;
+}
+
+.mapContainer{
+    width: 100%;
+    border-radius: 72px;
+    background: #F7F7F7;
+    border: 30 px solid white;
+}

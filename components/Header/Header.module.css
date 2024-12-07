@@ -1,0 +1,46 @@
+.HeaderHead{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 32px !important;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: 41px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+.HeaderHead:hover{
+    color: #003366;
+}
+
+.Header{
+    display: flex;
+    width: 90%;
+    height: 95px;
+    border-radius: 27px;
+    background: rgba(217, 217, 217, 0.19);
+    align-items: center;
+    margin-top: 48px;
+    z-index: 3;
+    justify-content: space-between;
+}
+
+.links{
+    display: flex;
+    gap: 86px;
+    margin-right: 87px;
+}
+
+.links a{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    transition: all ease-in-out .3s;
+}
+
+.links a:hover{
+    color: #003366;
+}

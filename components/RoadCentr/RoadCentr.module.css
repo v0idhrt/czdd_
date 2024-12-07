@@ -1,0 +1,14 @@
+.RoadWrapper{
+    display: flex;
+    width: 3000px;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+    position: absolute;
+    top: 1900px;
+}
+
+.Road>img{
+    width: 3000px;
+    overflow-x: hidden;
+}
