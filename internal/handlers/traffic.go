@@ -14,7 +14,6 @@ import (
 
 func AnalyzeTrafficVideoHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// Запрос к Python-сервису для получения данных о трафике
 		pythonURL := "http://127.0.0.1:5000/current_traffic_state" // URL Python-сервиса
 		resp, err := http.Get(pythonURL)
 		if err != nil {
@@ -23,14 +22,12 @@ func AnalyzeTrafficVideoHandler(db *sql.DB) http.HandlerFunc {
 		}
 		defer resp.Body.Close()
 
-		// Чтение ответа от Python-сервиса
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			http.Error(w, "Ошибка чтения ответа от Python-сервиса", http.StatusInternalServerError)
 			return
 		}
 
-		// Распарсить ответ JSON в структуру
 		var trafficData map[string]struct {
 			AverageSpeed   float64 `json:"average_speed"`
 			TrafficDensity float64 `json:"traffic_density"`
@@ -40,10 +37,8 @@ func AnalyzeTrafficVideoHandler(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		// Текущая временная метка
 		timestamp := time.Now()
 
-		// Сохранение данных в базу данных
 		for videoPath, data := range trafficData {
 			query := `
 				INSERT INTO traffic_data (road_name, timestamp, congestion_level, average_speed, latitude, longitude)
@@ -54,7 +49,6 @@ func AnalyzeTrafficVideoHandler(db *sql.DB) http.HandlerFunc {
 				    average_speed = EXCLUDED.average_speed;
 			`
 
-			// Генерируем фиктивные координаты на основе имени файла видео
 			latitude := 55.7522 + float64(len(videoPath))*0.01 // Пример
 			longitude := 37.6173 + float64(len(videoPath))*0.01
 
@@ -173,15 +167,14 @@ func GetHighCongestionTrafficHandler(db *sql.DB) http.HandlerFunc {
 }
 
 func UpdateTrafficData(db *sql.DB) {
-	pythonURL := "http://127.0.0.1:5000/current_traffic_state" // URL Python-сервиса
+	pythonURL := "http://127.0.0.1:5000/current_traffic_state"
 
-	ticker := time.NewTicker(10 * time.Second) // Интервал обновления: 1 минута
+	ticker := time.NewTicker(10 * time.Second)
 	defer ticker.Stop()
 
 	for range ticker.C {
 		fmt.Println("Обновление данных о трафике...")
 
-		// Запрос к Python-сервису
 		resp, err := http.Get(pythonURL)
 		if err != nil {
 			fmt.Printf("Ошибка запроса к Python-сервису: %v\n", err)
@@ -201,7 +194,6 @@ func UpdateTrafficData(db *sql.DB) {
 			continue
 		}
 
-		// Распарсить JSON
 		var trafficData map[string]struct {
 			AverageSpeed   float64 `json:"average_speed"`
 			TrafficDensity float64 `json:"traffic_density"`
@@ -211,10 +203,8 @@ func UpdateTrafficData(db *sql.DB) {
 			continue
 		}
 
-		// Текущая временная метка
 		timestamp := time.Now()
 
-		// Сохранение данных в БД
 		for videoPath, data := range trafficData {
 			query := `
 				INSERT INTO traffic_data (road_name, timestamp, congestion_level, average_speed, latitude, longitude)
