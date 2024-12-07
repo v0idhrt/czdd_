@@ -13,17 +13,14 @@ import (
 )
 
 func main() {
-	// Строка подключения к БД
 	connStr := "host=localhost port=5432 user=postgres password=Zer1703On dbname=czdd sslmode=disable"
 
-	// Подключение к базе данных
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		log.Fatal("Ошибка подключения к БД:", err)
 	}
 	defer db.Close()
 
-	// Проверка подключения
 	if err = db.Ping(); err != nil {
 		log.Fatal("Ошибка проверки подключения к БД:", err)
 	}
@@ -32,7 +29,6 @@ func main() {
 
 	go handlers.UpdateTrafficData(db)
 
-	// Создаем маршрутизатор
 	r := mux.NewRouter()
 
 	r.HandleFunc("/login", handlers.LoginHandler(db)).Methods("POST")
@@ -47,7 +43,6 @@ func main() {
 	protected.HandleFunc("/traffic/high_congestion", handlers.GetHighCongestionTrafficHandler(db)).Methods("GET")
 	protected.HandleFunc("/requests", handlers.AddRequestHandler(db)).Methods("POST")
 	protected.HandleFunc("/requests", handlers.GetRequestsHandler(db)).Methods("GET")
-	// Запускаем сервер
 
 	log.Println("Сервер запущен на :8080")
 	log.Fatal(http.ListenAndServe(":8080", r))

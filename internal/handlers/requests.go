@@ -12,14 +12,12 @@ func AddRequestHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req models.Request
 
-		// Парсинг тела запроса
 		err := json.NewDecoder(r.Body).Decode(&req)
 		if err != nil {
 			http.Error(w, "Invalid request body. JSON is malformed", http.StatusBadRequest)
 			return
 		}
 
-		// Удаляем пробелы и проверяем на пустые значения
 		req.FullName = strings.TrimSpace(req.FullName)
 		req.PhoneNumber = strings.TrimSpace(req.PhoneNumber)
 		req.Email = strings.TrimSpace(req.Email)
@@ -30,7 +28,6 @@ func AddRequestHandler(db *sql.DB) http.HandlerFunc {
 			return
 		}
 
-		// SQL-запрос для вставки данных
 		query := `
 			INSERT INTO requests (full_name, phone_number, email, message)
 			VALUES ($1, $2, $3, $4);

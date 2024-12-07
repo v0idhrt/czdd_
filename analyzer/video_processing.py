@@ -5,13 +5,11 @@ from ultralytics import YOLO
 import threading
 import logging
 
-# Настройка логирования
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(threadName)s - %(message)s'
 )
 
-# Загрузка модели YOLO
 try:
     model = YOLO("yolo11m.pt")  # Убедитесь, что модель находится в указанном пути
     model.to("cpu")  # Если у вас есть GPU, замените "cpu" на "cuda"
@@ -20,7 +18,6 @@ except Exception as e:
     # logging.error(f"Ошибка при загрузке модели YOLO: {e}")
     raise e
 
-# Блокировка для потокобезопасного доступа к модели
 model_lock = threading.Lock()
 
 def process_frame_yolo(frame, prev_gray, car_classes, confidence_threshold):
@@ -58,7 +55,6 @@ def process_frame_yolo(frame, prev_gray, car_classes, confidence_threshold):
         )
         dx, dy = flow[..., 0], flow[..., 1]
 
-        # Средняя скорость (модуль скорости)
         speed = np.sqrt(dx**2 + dy**2)
         avg_speed = np.mean(speed)
 

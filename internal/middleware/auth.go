@@ -10,17 +10,14 @@ import (
 
 var jwtSecret = []byte("jasdjsadnjasnjk")
 
-// AuthMiddleware проверяет JWT-токен
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Извлечение токена из заголовка Authorization
 		authHeader := r.Header.Get("Authorization")
 		if authHeader == "" {
 			http.Error(w, "Missing Authorization header", http.StatusUnauthorized)
 			return
 		}
 
-		// Ожидаем заголовок в формате "Bearer <token>"
 		parts := strings.Split(authHeader, " ")
 		if len(parts) != 2 || parts[0] != "Bearer" {
 			http.Error(w, "Invalid Authorization header format", http.StatusUnauthorized)
@@ -29,9 +26,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 
 		tokenString := parts[1]
 
-		// Проверяем токен
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-			// Проверка метода подписи
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, http.ErrAbortHandler
 			}
@@ -43,7 +38,6 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			return
 		}
 
-		// Передаем токен в контекст
 		claims, ok := token.Claims.(jwt.MapClaims)
 		if !ok {
 			http.Error(w, "Invalid token claims", http.StatusUnauthorized)
