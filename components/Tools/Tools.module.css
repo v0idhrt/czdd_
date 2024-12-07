@@ -1,0 +1,68 @@
+.Tools{
+    width: 80%;
+    height: 190px;
+    border-radius: 58px;
+    background: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.TrafficHeader{
+    color: #000;
+    font-family: Montserrat;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    max-width: 193px;
+    text-align: left;
+}
+
+.TrafficVisual{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 78px;
+}
+
+.ClimaxText{
+    color: #000;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.TrafficBorder{
+    width: 63px;
+    height: 63px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+}
+
+.TrafficValue{
+    width: 49px;
+    height: 49px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 45.176px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.TrafficWrapper{
+    display: flex;
+}
