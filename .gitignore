@@ -1,0 +1,54 @@
+# Python-specific ignores
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.swp
+*.egg-info/
+*.log
+*.bak
+*.tmp
+*.~ 
+*.DS_Store
+*.venv/
+*.vscode/
+
+# Virtual environment
+env/
+venv/
+
+# Ignore model files and large data files
+*.pt
+
+# Video files and processed videos
+videos/
+processed_videos/
+
+# Ignore Docker artifacts
+Dockerfile
+docker-compose.yml
+
+# Ignore Go build and dependency files
+*.exe
+*.out
+*.o
+*.a
+*.test
+*.log
+go.sum
+vendor/
+
+# Ignore IDE and editor specific files
+.idea/
+*.iml
+*.suo
+*.ncb
+*.user
+*.vcproj
+*.vcxproj
+*.swp
+
+# Ignore temp files
+tmp/
+*.tmp
+*.bak
