@@ -42,7 +42,7 @@ func LoginHandler(db *sql.DB) http.HandlerFunc {
 
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 			"username": authRequest.Username,
-			"exp":      time.Now().Add(time.Hour * 1).Unix(), // Токен действует 1 час
+			"exp":      time.Now().Add(time.Hour * 8).Unix(), // Токен действует 1 час
 		})
 
 		tokenString, err := token.SignedString(jwtSecret)

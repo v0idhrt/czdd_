@@ -22,7 +22,7 @@ CAR_CLASSES = [2, 5, 7]  # Эти номера соответствуют кла
 
 # Порог уверенности для детектирования объектов
 CONFIDENCE_THRESHOLD = 0.5
-
+METERS_PER_PIXEL = 1.2
 # Переменные для хранения состояния дороги для каждого видео
 traffic_states = {
     video_path: {"traffic_density": 1, "average_speed": 0}  # Начальная загруженность 1

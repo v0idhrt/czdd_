@@ -29,33 +29,39 @@ func AddRequestHandler(db *sql.DB) http.HandlerFunc {
 		}
 
 		query := `
-			INSERT INTO requests (full_name, phone_number, email, message)
-			VALUES ($1, $2, $3, $4);
+			INSERT INTO requests (full_name, phone_number, email, message, done)
+			VALUES ($1, $2, $3, $4, $5)
+			RETURNING id;
 		`
 
-		_, err = db.Exec(query, req.FullName, req.PhoneNumber, req.Email, req.Message)
+		var id int
+		err = db.QueryRow(query, req.FullName, req.PhoneNumber, req.Email, req.Message, false).Scan(&id)
 		if err != nil {
 			http.Error(w, "Database insert error", http.StatusInternalServerError)
 			return
 		}
 
-		w.WriteHeader(http.StatusCreated)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]int{"id": id})
 	}
 }
 
 func GetRequestsHandler(db *sql.DB) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// SQL-запрос для выборки данных с форматированием
 		query := `
 			SELECT 
+				id, 
 				full_name, 
 				phone_number, 
 				email, 
 				message, 
 				TO_CHAR(created_at, 'DD-MM-YYYY') AS created_date, 
-				TO_CHAR(created_at, 'HH24:MI:SS') AS created_time
+				TO_CHAR(created_at, 'HH24:MI:SS') AS created_time,
+				done
 			FROM requests
-			ORDER BY created_at DESC;
+			WHERE done = false
+			ORDER BY created_at DESC
+			LIMIT 4;
 		`
 
 		rows, err := db.Query(query)
@@ -68,7 +74,7 @@ func GetRequestsHandler(db *sql.DB) http.HandlerFunc {
 		var requests []models.Request
 		for rows.Next() {
 			var req models.Request
-			err := rows.Scan(&req.FullName, &req.PhoneNumber, &req.Email, &req.Message, &req.CreatedDate, &req.CreatedTime)
+			err := rows.Scan(&req.ID, &req.FullName, &req.PhoneNumber, &req.Email, &req.Message, &req.CreatedDate, &req.CreatedTime, &req.Done)
 			if err != nil {
 				http.Error(w, "Error reading database result", http.StatusInternalServerError)
 				return
@@ -83,5 +89,34 @@ func GetRequestsHandler(db *sql.DB) http.HandlerFunc {
 
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(requests)
+	}
+}
+
+func UpdateRequestStatusHandler(db *sql.DB) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var updateData struct {
+			ID   int  `json:"id"`
+			Done bool `json:"done"`
+		}
+
+		err := json.NewDecoder(r.Body).Decode(&updateData)
+		if err != nil {
+			http.Error(w, "Invalid request body. JSON is malformed", http.StatusBadRequest)
+			return
+		}
+
+		query := `
+			UPDATE requests
+			SET done = $1
+			WHERE id = $2;
+		`
+
+		_, err = db.Exec(query, updateData.Done, updateData.ID)
+		if err != nil {
+			http.Error(w, "Database update error", http.StatusInternalServerError)
+			return
+		}
+
+		w.WriteHeader(http.StatusOK)
 	}
 }

@@ -7,6 +7,9 @@ import (
 	"io/ioutil"
 	"math"
 	"net/http"
+	"path"
+	"path/filepath"
+	"strings"
 	"time"
 
 	"czdd-backend/internal/models"
@@ -40,19 +43,17 @@ func AnalyzeTrafficVideoHandler(db *sql.DB) http.HandlerFunc {
 		timestamp := time.Now()
 
 		for videoPath, data := range trafficData {
+			roadName := filepath.Base(videoPath)
 			query := `
-				INSERT INTO traffic_data (road_name, timestamp, congestion_level, average_speed, latitude, longitude)
-				VALUES ($1, $2, $3, $4, $5, $6)
+				INSERT INTO traffic_data (road_name, timestamp, congestion_level, average_speed)
+				VALUES ($1, $2, $3, $4)
 				ON CONFLICT (road_name) DO UPDATE
 				SET timestamp = EXCLUDED.timestamp,
 				    congestion_level = EXCLUDED.congestion_level,
 				    average_speed = EXCLUDED.average_speed;
 			`
 
-			latitude := 55.7522 + float64(len(videoPath))*0.01 // Пример
-			longitude := 37.6173 + float64(len(videoPath))*0.01
-
-			_, err := db.Exec(query, videoPath, timestamp, int(data.TrafficDensity), data.AverageSpeed, latitude, longitude)
+			_, err := db.Exec(query, roadName, timestamp, int(data.TrafficDensity), data.AverageSpeed)
 			if err != nil {
 				http.Error(w, fmt.Sprintf("Ошибка сохранения данных в БД: %v", err), http.StatusInternalServerError)
 				return
@@ -206,25 +207,35 @@ func UpdateTrafficData(db *sql.DB) {
 		timestamp := time.Now()
 
 		for videoPath, data := range trafficData {
-			query := `
-				INSERT INTO traffic_data (road_name, timestamp, congestion_level, average_speed, latitude, longitude)
-				VALUES ($1, $2, $3, $4, $5, $6)
+			roadname := path.Base(videoPath)
+			roadname = strings.TrimSuffix(roadname, ".mp4") // Убираем расширение .mp4
+
+			// Вставка данных в основную таблицу
+			queryMain := `
+				INSERT INTO traffic_data (road_name, timestamp, congestion_level, average_speed)
+				VALUES ($1, $2, $3, $4)
 				ON CONFLICT (road_name) DO UPDATE
 				SET 
 					timestamp = EXCLUDED.timestamp,
 					congestion_level = EXCLUDED.congestion_level,
-					average_speed = EXCLUDED.average_speed,
-					latitude = EXCLUDED.latitude,
-					longitude = EXCLUDED.longitude;
+					average_speed = EXCLUDED.average_speed
 			`
 
-			// Генерируем фиктивные координаты
-			latitude := 55.7522 + float64(len(videoPath)%10)*0.01
-			longitude := 37.6173 + float64(len(videoPath)%10)*0.01
-
-			_, err := db.Exec(query, videoPath, timestamp, int(data.TrafficDensity), data.AverageSpeed, latitude, longitude)
+			_, err := db.Exec(queryMain, roadname, timestamp, int(data.TrafficDensity), data.AverageSpeed)
 			if err != nil {
-				fmt.Printf("Ошибка сохранения данных для %s: %v\n", videoPath, err)
+				fmt.Printf("Ошибка сохранения данных для %s: %v\n", roadname, err)
+				continue
+			}
+
+			// Вставка данных в таблицу истории
+			queryHistory := `
+				INSERT INTO traffic_data_history (road_name, timestamp, congestion_level, average_speed)
+				VALUES ($1, $2, $3, $4)
+			`
+
+			_, err = db.Exec(queryHistory, roadname, timestamp, int(data.TrafficDensity), data.AverageSpeed)
+			if err != nil {
+				fmt.Printf("Ошибка сохранения истории данных для %s: %v\n", roadname, err)
 				continue
 			}
 		}
