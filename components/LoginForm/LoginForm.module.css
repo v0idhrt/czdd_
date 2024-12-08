@@ -1,0 +1,274 @@
+.LoginSection{
+    z-index: 3;
+    width: 84%;
+    background-color: #FFF;
+    position: absolute;
+    top: 213px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 72px;
+    background: #F7F7F7;
+    padding: 50px;
+}
+
+.HeaderForm{
+    color: #3962F7;
+    font-family: Montserrat;
+    font-size: 51.548px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: left;
+    margin-top: 0;
+    max-width: 483px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.formUser{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.FormWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+
+
+.LoginInput{
+    max-width: 583.261px;
+    width: 100%;
+    height: 90.209px;
+    border-radius: 24.968px;
+    background-color: #FFF;
+    border: none;
+    margin-bottom: 59px;
+    padding-left: 22px;
+    color: #454545;
+    font-family: Montserrat;
+    font-size: 25.774px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.messageInput{
+    width: 100%;
+    height: 380px;
+    flex-shrink: 0;
+    border-radius: 24.968px;
+    background: #FFF;
+    border: none;
+    color: black;
+    font-family: Montserrat;
+    font-size: 19.33px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-left: 22px;
+    padding-top: 12px;
+    margin-top: 40px;
+}
+
+.AppealInput{
+    max-width: 683px;
+    width: 100%;
+    height: 90.209px;
+    border-radius: 24.968px;
+    background-color: #FFF;
+    border: none;
+    margin-bottom: 59px;
+    padding-left: 22px;
+    color: #454545;
+    font-family: Montserrat;
+    font-size: 25.774px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.ButtonWrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 605.261px;
+}
+
+.ButtonWorker, .ButtonGuest{
+    display: flex;
+    width: 269px;
+    height: 90px;
+    padding: 20.941px 0;
+    justify-content: center;
+    align-items: center;
+    gap: 8.054px;
+    border-radius: 32.217px;
+    background: #3962F7;
+    box-shadow: 0px 3.222px 22.23px 0px rgba(124, 134, 170, 0.25);
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 25.774px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border: none;
+    box-shadow: none;
+    transition: all ease-in-out .3s;
+}
+
+.ButtonGuest{
+    background: #b6b6b6;
+}
+
+.ButtonWorker:hover{
+    background: #1a2247;
+}
+
+.ButtonGuest:hover{
+    background: #454545;
+}
+
+.AppealsWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    border-radius: 43px;
+    background: linear-gradient(309deg, #6584F4 2.26%, #3962F7 95.88%);
+    margin-left: 30px;
+    align-items: center;
+    padding: 30px;
+    max-width: 650px;
+}
+
+.AppealsVisual{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 100%;
+}
+
+.iconWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 166px;
+    height: 166px;
+    border-radius: 29px;
+    background-color: #FFF;
+}
+
+.AppealSection{
+    z-index: 3;
+    width: 84%;
+    background-color: #FFF;
+    position: absolute;
+    top: 213px;
+    display: flex;
+    justify-content: center;
+    border-radius: 72px;
+    background: #F7F7F7;
+    padding: 50px;
+}
+
+.AppealsHeader{
+    max-width: 429px;
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: left;
+    margin-top: 31px;
+    margin-bottom: 24px;
+}
+
+.AppealsText{
+    max-width: 581px;
+    color: #B8B8B8;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: left;
+    margin: 0;
+}
+
+.AppealsButton{
+    display: flex;
+    width: 100%;
+    height: 94px;
+    padding: 25px 72px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 28px;
+    border: none;
+    background: #FFF;
+    color: #000;
+    font-family: Montserrat;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 73px;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
+
+.AppealsButton:hover{
+    background-color: #1a2247;
+    color: #FFF;
+}
+
+.fadeIn{
+    animation: fadeIn .3s forwards !important;
+}
+
+.messageWrapper{
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    max-width: 683px;
+    width: 100%;
+    justify-content: right;
+    align-items: end;
+}
+.Arrow{
+    cursor: pointer;
+    fill: black;
+    transition: all .3s ease-in-out;
+}
+
+.Arrow:hover{
+    fill: #3962F7;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeIIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes expand {
+    from { max-width: 500px; }
+    to { max-width: 1000px; }
+}

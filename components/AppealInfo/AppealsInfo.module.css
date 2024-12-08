@@ -1,0 +1,122 @@
+.AppealsInfo{
+    width: 95%;
+    height: 485px;
+    flex-shrink: 0;
+    border-radius: 43px;
+    background: #BCCAFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px;
+}
+
+.Appeal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-radius: 30px;
+    background: #FFF;
+    padding: 0 31px;
+}
+
+.AppealName{
+    height: 24px;
+    justify-self: right;
+    color: #000;
+    font-family: Montserrat;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    width:100%;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.RightInfo{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.AppealLeftInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    text-align: left;
+}
+
+.AppealContacts{
+    display: flex;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.AppealRightInfo{
+    display: flex;
+    flex-direction: column;
+    color: #000;
+    font-family: Montserrat;
+    font-size: 19.33px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: right;
+}
+
+.Checking{
+    width: 36px;
+    height: 35px;
+    border: 1px solid black;
+    border-radius: 34px;
+    margin-top: 5px;
+    transition: all .3s ease-in-out;
+}
+
+.Message{
+    color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+.Checking:hover{
+    animation: expand .3s ease-in-out;
+}
+
+.Appeal{
+    animation: depand .3s ease-in-out;
+}
+
+
+
+.Expanded{
+    height: 400px;
+    animation: expand .3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeIIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes expand {
+    from { max-height: 85px; }
+    to { max-height: 350px; }
+}
+
+@keyframes depand {
+    from { max-height: 85px; }
+    to { min-height: 350px; }
+}

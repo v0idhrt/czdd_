@@ -1,0 +1,68 @@
+.RoadsWrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-left: -100px;
+    width: 100%;
+    z-index: 2;
+}
+
+.Analytic{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.Left{
+    position: absolute;
+    top: 350px;
+    overflow: hidden;
+    left: -600px;
+}
+
+.Right{
+    top: -10px;
+    position: absolute;
+    right: -100px;
+    overflow: hidden;
+}
+
+.Actual{
+    display: flex;
+    width: 85%;
+    border-radius: 72px;
+    background: #F7F7F7;
+    z-index: 3;
+    padding: 50px;
+    top: 213px;
+    position: absolute;
+    flex-direction: column;
+}
+
+.ActualTextWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    text-align: left;
+}
+
+.ActualHeader{
+    color: #000;
+    font-family: Montserrat;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    margin-top: 10px;
+}
+
+.ActualText{
+    color: #454545;
+    font-family: Montserrat;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}

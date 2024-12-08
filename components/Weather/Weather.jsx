@@ -1,47 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './Weather.module.css';
+import Sunny from '../../assets/Sunny.svg?react';
+import Cloudy from '../../assets/Cloudy.svg?react';
+import Rainy from '../../assets/Rainy.svg?react';
+import Thunder from '../../assets/Thunder.svg?react';
+import Windy from '../../assets/Windy.svg?react';
+import Snowy from '../../assets/Snowy.svg?react';
+import Unknown from '../../assets/Arrow.svg?react'; // Иконка по умолчанию
 
+const Weather = ({condition, temperature}) => {
+    console.log(`Condition: ${condition}, Temperature: ${temperature}`);
 
-const Weather = () => {
-    const [weatherData, setWeatherData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const API_KEY = import.meta.env.VITE_WEATHER_API;// Replace with your actual API key
+    // Объект иконок
+    const icons = {
+        Sunny: <Sunny />,
+        Cloudy: <Cloudy />,
+        Rainy: <Rainy />,
+        Thunder: <Thunder />,
+        Windy: <Windy />,
+        Snowy: <Snowy />, // Иконка по умолчанию
+    };
 
-    useEffect(() => {
-        const fetchWeather = async () => {
-            try {
-                const response = await axios.get(`https://api.weather.yandex.ru/v2/forecast??lat=45.0355&lon=38.9753`, {
-                    headers: {
-                        'X-Yandex-Weather-Key': API_KEY
-                    }
-                });
-                setWeatherData(response.data);
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
+    // Перевод погодных условий на русский
+    
+    const conditionRU = {
+        Sunny: 'Солнечно',
+        Cloudy: 'Облачно',
+        Rainy: 'Дождь',
+        Thunder: 'Гроза',
+        Windy: 'Ветрено',
+        Snowy: 'Снег', // Иконка по умолчанию
         };
-
-        fetchWeather();
-    }, [API_KEY]);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
+    
+        
 
     return (
-        <div>
-            <h2>Погода в Краснодаре</h2>
-            <p>Температура: {weatherData.fact.temp}°C</p>
-            <p>Осадки: {weatherData.fact.precipitation || 'Нет'}</p>
+        <div className={styles.WeatherWrapper}>
+            {icons[condition] ? icons[condition] : icons.Unknown} {/* Иконка по умолчанию */}
+            <h1 className={styles.Weather}>
+                {conditionRU[condition] || conditionRU.Unknown} {temperature}°C
+            </h1>
         </div>
     );
+};
+
+// Определение PropTypes
+Weather.propTypes = {
+    condition: PropTypes.string,
+    temperature: PropTypes.number,
 };
 
 export default Weather;

@@ -44,8 +44,27 @@
     line-height: normal;
     transition: all .3s ease-in-out;
     cursor: pointer;
+    animation: fadeIn .3s;
+}
+
+.NoData{
+    margin-left: 22px;
+    margin-top: 28px;
+    color: black;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    transition: all .3s ease-in-out;
+    cursor: pointer;
 }
 
 .Streets:hover{
     background-color: rgb(167, 0, 0);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

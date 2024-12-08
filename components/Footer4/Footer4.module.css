@@ -1,0 +1,47 @@
+.Footer{
+    width: 80%;
+    border-radius: 72px 72px 0px 0px;
+    background-color: #F7F7F7;
+    height: 358px;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    padding: 49px 77px;
+    z-index: 3;
+    top: 2500px;
+}
+
+.FooterHeader{
+    color: #000;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: left;
+}
+
+.Gray{
+    list-style-type: none;
+    display: block;
+    color: #646464;
+    font-family: Montserrat;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    max-width: 510px;
+    word-wrap: break-word;
+    text-align: right;
+}
+
+.Black{
+    color: #000;
+    font-family: Montserrat;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    
+}
+
